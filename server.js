@@ -12,7 +12,7 @@ var Vuelos = mongoose.model('Vuelos', {
 
 var Reservas = mongoose.model('Reservas', {
   nombre: String,
-  cedula: Number,
+  cedula: String,
   edad: Number,
   dia_reserva: String,
   ciudad: String,
@@ -20,7 +20,12 @@ var Reservas = mongoose.model('Reservas', {
 })
 
 app.use( express.static(__dirname +'/public'));
-
+//Responde a cualquier solicitud de un cliente web
+app.use(function(req, res, next)
+  { res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -86,5 +91,5 @@ app.get('*',function(req, res){
 })
 
 app.listen(8080, function(){
-  console.log("welocome server");
+  console.log("Bienvenido a tu servidor");
 });
